@@ -1,0 +1,272 @@
+/* Variables globales */
+:root {
+  --chevron-size: 28px;
+  --chevron-thickness: 8px;
+  --text-color: #fff;
+  --animation-duration: 3s;
+  --container-size: 24px;
+}
+
+/* Configuración básica */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 160vh;
+  overflow-x: hidden;
+}
+
+/* Fondo fijo */
+.background-image {
+  position: fixed;
+  inset: 0;
+  background: url('../img/IMAGEN\ FONDO\ 1920X1080.webp') left/cover no-repeat;
+  transition: transform 0.5s ease-out;
+  z-index: -1;
+}
+
+/* Imágenes que se mueven */
+.moving-image {
+  position: fixed;
+  top: 50%;
+  width: 50%;
+  height: 100%;
+  transform: translateY(-50%);
+  transition: transform 0.5s ease-out;
+}
+
+#left-image {
+  left: 0;
+  transform: translateY(-50%);
+}
+
+#right-image {
+  right: 0;
+  transform: translateY(-50%);
+}
+
+#logo {
+  position: fixed;
+  width: 20%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease-out;
+}
+
+.mouse {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 100vh;
+  /* Asegura que las tarjetas empiecen después del primer scroll */
+}
+
+.card {
+  width: 100%;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.5s ease, transform 1.5s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  top: 90%;
+  left: 10%;
+}
+
+.card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-item {
+  width: 50%;
+}
+
+#tarjeta_portfolio {
+  width: 150%;
+  padding-left: 20%;
+}
+
+#tarjeta_servicios {
+  width: 150%;
+  padding-left: 90%;
+}
+
+#tarjeta_hablemos {
+  width: 150%;
+  padding-left: 285%;
+}
+
+/* Scroll Down Animation */
+.container-chevrons {
+  position: fixed;
+  inset: auto auto 15% 8%;
+  width: var(--container-size);
+  height: var(--container-size);
+}
+
+.chevron {
+  position: absolute;
+  width: var(--chevron-size);
+  height: var(--chevron-thickness);
+  opacity: 0;
+  transform: scale3d(0.5, 0.5, 0.5);
+  animation: move var(--animation-duration) ease-out infinite;
+}
+
+.chevron:nth-child(1) {
+  animation-delay: 1s;
+}
+
+.chevron:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.chevron::before,
+.chevron::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 51%;
+  background: var(--text-color);
+}
+
+.chevron::before {
+  left: 0;
+  transform: skew(0deg, 30deg);
+}
+
+.chevron::after {
+  right: 0;
+  width: 50%;
+  transform: skew(0deg, -30deg);
+}
+
+@keyframes move {
+
+  25%,
+  33%,
+  67% {
+    opacity: 1;
+  }
+
+  33% {
+    transform: translateY(30px);
+  }
+
+  67% {
+    transform: translateY(40px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(55px) scale3d(0.5, 0.5, 0.5);
+  }
+}
+
+.text {
+  display: block;
+  margin: 75px 0 0 -30px;
+  font-family: system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.25;
+  animation: pulse 2s linear alternate infinite;
+}
+
+@keyframes pulse {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 160vh;
+    background-image: url('../img/IMAGEN\ FONDO\ 1920X1080.webp');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease-out;
+    z-index: -1;
+  }
+
+  .moving-image {
+    width: 60%;
+  }
+
+  #logo {
+    width: 70%;
+  }
+
+  .card {
+    width: 80%;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 70%;
+    left: 20%;
+  }
+
+  .card-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #left-image,
+  #right-image {
+    width: 100%;
+    height: 100vh;
+    aspect-ratio: 16/9;
+    position: fixed;
+    top: 50%;
+    z-index: -1;
+  }
+
+  #left-image {
+    left: -45%;
+  }
+
+  #right-image {
+    right: -45%;
+  }
+
+  /* Tarjetas con propiedades comunes */
+  #tarjeta_portfolio {
+    width: 130%;
+    padding-left: 28%;
+  }
+
+  #tarjeta_servicios {
+    width: 90%;
+    padding-left: 28%;
+  }
+
+  #tarjeta_hablemos {
+    width: 85%;
+    padding-left: 28%;
+  }
+
+}

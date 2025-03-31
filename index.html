@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Lovelace Digital Arts</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js"></script>
+    
+</head>
+<body>
+    <div class="background-image"></div>
+    
+    <img src="./img/SUPERPOSICION_IZQ.webp" alt="Imagen izquierda" loading="lazy" class="moving-image" id="left-image">
+    <img src="./img/SUPERPOSICION_DER.webp" alt="Imagen derecha" loading="lazy" class="moving-image" id="right-image">
+    <img src="./img/LOGO GRANDE.webp" alt="logo" loading="lazy" id="logo">
+
+    <div class="container-chevrons">
+        <div class="chevron"></div> 
+        <div class="chevron"></div>
+        <div class="chevron"></div>
+        <span class="text">Scroll down</span>
+    </div>
+
+    <div class="card">
+        <a href="./portfolio.html"><div class="card-item"><img src="./img/TARJETA PORTFOLIO.webp" alt="tarjeta_portfolio" loading="lazy" id="tarjeta_portfolio"></div></a>
+        <a href="./servicios.html"><div class="card-item"><img src="./img/TARJETA SERVICIOS.webp" alt="tarjeta_servicios" loading="lazy" id="tarjeta_servicios"></div></a>
+        <a href="./hablemos.html"><div class="card-item"><img src="./img/TARJETA HABLEMOS.webp" alt="tarjeta_hablemos" loading="lazy" id="tarjeta_hablemos"></div></a>
+    </div>  
+
+    <script>
+        // Función para detectar si es dispositivo móvil
+        function isMobileDevice() {
+            return (window.innerWidth <= 768) || 
+                ('ontouchstart' in window) ||
+                (navigator.maxTouchPoints > 0);
+        }
+
+        const leftImage = document.getElementById('left-image');
+        const rightImage = document.getElementById('right-image');
+        const logo = document.getElementById('logo');
+        const cards = document.querySelectorAll('.card');
+        const windowHeight = window.innerHeight;
+        const windowWidth = window.innerWidth;
+        let lastScrollTop = 0;
+
+        // Configuración responsive
+        const config = {
+            desktop: {
+                imageMovement: 0.25,
+                logoStartSize: 1,
+                logoEndSize: -0.1,
+                logoStartTop: 50,
+                logoEndTop: -20,
+                logoStartLeft: 50,
+                logoEndLeft: -25,
+                cardVisibilityThreshold: 0.9
+            },
+            mobile: {
+                imageMovement: 0.15,
+                logoStartSize: 0.7,
+                logoEndSize: -0.05,
+                logoStartTop: 50,
+                logoEndTop: -10,
+                logoStartLeft: 50,
+                logoEndLeft: -15,
+                cardVisibilityThreshold: 0.8
+            }
+        };
+
+        window.addEventListener('scroll', () => {
+            const isMobile = isMobileDevice();
+            const currentConfig = isMobile ? config.mobile : config.desktop;
+            
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrollPercentage = scrollTop / scrollHeight;
+
+            // Determinar la dirección del scroll
+            const scrollingDown = scrollTop > lastScrollTop;
+            lastScrollTop = scrollTop;
+
+            // Mover imágenes laterales con valores responsivos
+            const movement = windowWidth * currentConfig.imageMovement * scrollPercentage;
+            
+            // En móvil, reducir o deshabilitar la animación de las imágenes laterales
+             if (!isMobile) {
+                 leftImage.style.transform = `translateX(${-movement}px) translateY(-50%)`;
+                 rightImage.style.transform = `translateX(${movement}px) translateY(-50%)`;
+             } else {
+                // En móvil, mantener las imágenes más estáticas o usar una animación más sutil
+                 leftImage.style.transform = `translateX(${-movement * 1.5}px) translateY(-50%)`;
+                 rightImage.style.transform = `translateX(${movement * 1.5}px) translateY(-50%)`;
+             }
+
+            // Mover y reducir el logo con valores responsivos
+            const maxScroll = windowHeight;
+            const scrollProgress = Math.min(scrollTop / maxScroll, 1);
+
+            const currentSize = currentConfig.logoStartSize - 
+                (currentConfig.logoStartSize - currentConfig.logoEndSize) * scrollProgress;
+
+            const currentTop = currentConfig.logoStartTop - 
+                (currentConfig.logoStartTop - currentConfig.logoEndTop) * scrollProgress;
+
+            const currentLeft = currentConfig.logoStartLeft - 
+                (currentConfig.logoStartLeft - currentConfig.logoEndLeft) * scrollProgress;
+
+            // Aplicar transformaciones con easing para movimientos más suaves en móvil
+            const transform = isMobile ? 
+                `translate(-50%, -50%) scale(${currentSize}) translateZ(0)` :
+                `translate(-50%, -50%) scale(${currentSize})`;
+
+            logo.style.top = `${currentTop}%`;
+            logo.style.left = `${currentLeft}%`;
+            logo.style.transform = transform;
+
+            // Mostrar u ocultar tarjetas con umbral ajustado para móvil
+            cards.forEach((card, index) => {
+                const cardTop = card.offsetTop;
+                const cardVisible = cardTop < scrollTop + windowHeight * currentConfig.cardVisibilityThreshold;
+                
+                if (cardVisible && scrollingDown) {
+                    setTimeout(() => {
+                        card.classList.add('card-visible');
+                    }, isMobile ? index * 150 : index * 200); // Timing más rápido en móvil
+                } else if (!cardVisible || !scrollingDown) {
+                    card.classList.remove('card-visible');
+                }
+            });
+        });
+
+        // Agregar listener para orientación en dispositivos móviles
+        window.addEventListener('orientationchange', () => {
+            // Pequeña pausa para permitir que el navegador actualice las dimensiones
+            setTimeout(() => {
+                // Forzar un evento de scroll para actualizar las posiciones
+                window.dispatchEvent(new Event('scroll'));
+            }, 200);
+        });
+
+        // Optimización para rendimiento en móvil
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    // Tu código de manejo de scroll aquí
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    </script>   
+</body>
+</html>
