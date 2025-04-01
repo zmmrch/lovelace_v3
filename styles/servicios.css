@@ -547,27 +547,27 @@ p {
 
     #num2 {
         font-size: 3rem;
-        margin-top: -230px;
+        margin-top: -210px;
         text-align: left;
     }
 
     #num3 {
         font-size: 3rem;
         margin-left: 9%;
-        margin-top: -290px;
+        margin-top: -260px;
         text-align: justify;
     }
 
     #num4 {
         font-size: 3rem;
-        margin-top: -330px;
+        margin-top: -300px;
     }
 
     #imgserv1 {
-        width: 30%;
+        width: 25%;
         position: absolute;
         top: 15%;
-        left: 65%;
+        left: 74%;
     }
 
     #num21 {
@@ -583,7 +583,7 @@ p {
         font-size: 1rem;
         font-weight: 300;
         padding-right: 10%;
-        padding-top: 25%;
+        padding-top: 20%;
     }
 
     .accordion_grupo {
@@ -655,7 +655,7 @@ p {
 
     .iridiscent {
         font-size: 1.2rem;
-        margin-top: 180%;
+        margin-top: 200%;
     }
 
     .card {
