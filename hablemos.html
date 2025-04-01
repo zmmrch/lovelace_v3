@@ -35,5 +35,17 @@
             <p id="parrafo">Elige la alternativa que quieras para ponerte en contacto con nosotros. Tu consulta es importante.</p>
         </div>
     </div>
+    <script>
+      // Verificar que la API y el método lock están disponibles
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('portrait').then(function() {
+          console.log('Orientación bloqueada a portrait.');
+        }).catch(function(error) {
+          console.error('No se pudo bloquear la orientación:', error);
+        });
+      } else {
+        console.warn('La API de orientación no está disponible en este navegador.');
+      }
+    </script>
 </body>
 </html>
