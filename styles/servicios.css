@@ -547,20 +547,20 @@ p {
 
     #num2 {
         font-size: 3rem;
-        margin-top: -210px;
+        margin-top: -190px;
         text-align: left;
     }
 
     #num3 {
         font-size: 3rem;
         margin-left: 9%;
-        margin-top: -260px;
+        margin-top: -230px;
         text-align: justify;
     }
 
     #num4 {
         font-size: 3rem;
-        margin-top: -300px;
+        margin-top: -270px;
     }
 
     #imgserv1 {
@@ -655,7 +655,7 @@ p {
 
     .iridiscent {
         font-size: 1.2rem;
-        margin-top: 200%;
+        margin-top: 180%;
     }
 
     .card {
