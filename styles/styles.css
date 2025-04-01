@@ -246,10 +246,12 @@ html {
   }
 
   #left-image {
+    height: 100vh;
     left: -45%;
   }
 
   #right-image {
+    height: 100vh;
     right: -45%;
   }
 
