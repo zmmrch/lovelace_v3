@@ -168,9 +168,9 @@ p {
 /* MEDIA QUERY */
 @media (max-width: 768px) {
     h1 {
-        font-size: 4.5rem;
-        margin-top: 100px;
-        margin-left: 50px;
+        font-size: 4.9rem;
+        margin-top: 80px;
+        margin-left: 51px;
     }
 
     #logo {
@@ -196,7 +196,7 @@ p {
         align-items: center;
         justify-content: center;
         margin-top: 150px;
-        gap: 88px;
+        gap: 65px;
         justify-items: center;
         margin-top: 40%;
     }
