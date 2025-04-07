@@ -547,27 +547,27 @@ p {
 
     #num2 {
         font-size: 3rem;
-        margin-top: -170px;
+        margin-top: -200px;
         text-align: left;
     }
 
     #num3 {
         font-size: 3rem;
         margin-left: 9%;
-        margin-top: -210px;
+        margin-top: -252px;
         text-align: justify;
     }
 
     #num4 {
         font-size: 3rem;
-        margin-top: -230px;
+        margin-top: -280px;
     }
 
     #imgserv1 {
-        width: 25%;
+        width: 30%;
         position: absolute;
-        top: 15%;
-        left: 74%;
+        top: 18%;
+        left: 68%;
     }
 
     #num21 {
@@ -631,10 +631,10 @@ p {
     h6 {
         font-family: 'myriad-pro', sans-serif;
         color: #fff;
-        font-size: 1rem;
+        font-size: 0.6rem ! important;
         font-weight: 300;
         padding-left: 0%;
-        padding-right: 5%;
+        padding-right: 1% ! important;
         padding-bottom: 0px;
     }
 
